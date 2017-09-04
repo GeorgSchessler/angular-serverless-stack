@@ -17,7 +17,7 @@ export class AppComponent {
         this.tasks = store.select('tasks');
     }
 
-    addTask(text: string) {
+    addTask() {
         this.store.dispatch({ type: ADD });
     }
 }
