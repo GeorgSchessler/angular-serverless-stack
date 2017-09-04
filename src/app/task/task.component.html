@@ -1,0 +1,9 @@
+<form class="example-form">
+    <md-form-field>
+        <input name="title" mdInput [value]="task.title" (change)="modify('title', $event.target.value)">
+    </md-form-field>
+    <md-form-field>
+        <input name="description" mdInput [value]="task.description" (change)="modify('description', $event.target.value)">
+    </md-form-field>
+</form>
+<i class="material-icons" (click)="delete()">delete</i>
