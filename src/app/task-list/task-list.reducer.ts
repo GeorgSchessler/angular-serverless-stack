@@ -1,20 +1,20 @@
-import * as TaskListActions from './task-list.actions';
+import * as Actions from './task-list.actions';
 import { Task } from '../app.state';
 
-export type Action = TaskListActions.All;
+export type Action = Actions.All;
 
 export function taskReducer(state: Task[] = [], action: Action) {
     switch (action.type) {
-        case TaskListActions.ADD: {
+        case Actions.ADD: {
             state.push({ title: 'Title', description: 'Your Description' });
             return state;
         }
 
-        case TaskListActions.MODIFY: {
+        case Actions.MODIFY: {
             return state.map((value, index) => index === action.index ? action.task : value);
         }
 
-        case TaskListActions.DELETE: {
+        case Actions.DELETE: {
             return state.filter((value, index) => index !== action.index);
         }
 

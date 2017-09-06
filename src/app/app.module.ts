@@ -16,9 +16,11 @@ import { environment } from '../environments/environment';
 import { RegistrationComponent } from './registration/registration.component';
 import { RouterModule } from '@angular/router';
 import { RegistrationModule } from './registration/registration.module';
-import { registrationkReducer } from './registration/registration.reducer';
+import { registrationReducer } from './registration/registration.reducer';
 import { appRoutes } from './app.routes';
 import { TaskListModule } from './task-list/task-list.module';
+import { LoginModule } from './login/login.module';
+import { loginReducer } from './login/login.reducer';
 
 export function logger(reducer): any {
     return storeLogger()(reducer);
@@ -37,8 +39,9 @@ export const metaReducers = environment.production ? [] : [logger];
         MdToolbarModule,
         TaskListModule,
         RegistrationModule,
+        LoginModule,
         RouterModule.forRoot(appRoutes),
-        StoreModule.forRoot({ tasks: taskReducer, registration: registrationkReducer }, { metaReducers })
+        StoreModule.forRoot({ tasks: taskReducer, registration: registrationReducer, login: loginReducer }, { metaReducers })
     ],
     providers: [],
     bootstrap: [AppComponent]

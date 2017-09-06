@@ -1,6 +1,7 @@
 export interface AppState {
     tasks: Task[];
     registration: Registration;
+    login: Login;
 }
 
 export interface Task {
@@ -12,5 +13,10 @@ export interface Registration {
     email: string;
     password: string;
     passwordRepeat: string;
-    code: string
+    code: string;
+}
+
+export interface Login {
+    email: string;
+    password: string;
 }

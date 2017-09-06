@@ -1,15 +1,15 @@
-import * as RegistrationActions from './registration.actions';
+import * as Actions from './registration.actions';
 import { Registration } from '../app.state';
 
-export type Action = RegistrationActions.All;
+export type Action = Actions.All;
 
-export function registrationkReducer(state: Registration = {email: '', password: '', passwordRepeat: '', code: ''}, action: Action) {
+export function registrationReducer(state: Registration = {email: '', password: '', passwordRepeat: '', code: ''}, action: Action) {
     switch (action.type) {
-        case RegistrationActions.MODIFY: {
+        case Actions.MODIFY: {
             return action.registration;
         }
 
-        case RegistrationActions.DELETE: {
+        case Actions.DELETE: {
             return {email: state.email, password: '', passwordRepeat: ''};
         }
 

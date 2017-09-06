@@ -1,3 +1,10 @@
-<p>
-  login works!
-</p>
+<h1>Login</h1>
+<form class="example-form">
+    <md-form-field>
+        <input name="email" mdInput placeholder="Username" [value]="(model | async).email" (change)="modify('email', $event.target.value)">
+    </md-form-field>
+    <md-form-field>
+        <input name="password" mdInput placeholder="Password" [value]="(model | async).password" (change)="modify('password', $event.target.value)">
+    </md-form-field>
+</form>
+<button md-button (click)="login()">Login</button>
