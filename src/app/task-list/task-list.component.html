@@ -1,3 +1,9 @@
+<div class="header">
+    <h1>
+        Your Task List
+    </h1>
+    <button md-button (click)="addTask()">Add Task</button>
+</div>
 <md-tab-group>
     <md-tab *ngFor="let task of (tasks | async); let i = index" label="{{task.title}}">
         <app-task [task]="task" [index]="i"></app-task>

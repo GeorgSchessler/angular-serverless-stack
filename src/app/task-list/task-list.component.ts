@@ -17,4 +17,8 @@ export class TaskListComponent {
     constructor(private store: Store<AppState>) {
         this.tasks = store.select('tasks');
     }
+
+    addTask() {
+        this.store.dispatch({ type: ADD });
+    }
 }

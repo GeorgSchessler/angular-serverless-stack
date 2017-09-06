@@ -1,0 +1,22 @@
+<h1>Create Account</h1>
+<form class="example-form">
+    <md-form-field>
+        <input name="email" mdInput placeholder="Username" [value]="(registration | async).email" (change)="modify('email', $event.target.value)">
+    </md-form-field>
+    <md-form-field>
+        <input name="password" mdInput placeholder="Password" [value]="(registration | async).password" (change)="modify('password', $event.target.value)">
+    </md-form-field>
+    <md-form-field>
+        <input name="passwordRepeat" mdInput placeholder="Repeat Password" [value]="(registration | async).passwordRepeat" (change)="modify('passwordRepeat', $event.target.value)">
+    </md-form-field>
+</form>
+<h1>Confirmation</h1>
+<form class="example-form">
+    <md-form-field>
+        <input name="email" mdInput placeholder="Username" [value]="(registration | async).email" (change)="modify('email', $event.target.value)">
+    </md-form-field>
+    <md-form-field>
+        <input name="code" mdInput placeholder="Code" [value]="(registration | async).code" (change)="modify('code', $event.target.value)">
+    </md-form-field>
+</form>
+<button md-button (click)="confirm()">Confirm</button>
