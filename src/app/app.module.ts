@@ -5,7 +5,7 @@ import { StoreModule } from '@ngrx/store';
 import { storeLogger } from 'ngrx-store-logger';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MdButtonModule, MdCheckboxModule, MdTabsModule, MdInputModule, MdFormFieldModule, MdToolbarModule } from '@angular/material';
+import { MdButtonModule, MdToolbarModule } from '@angular/material';
 import 'hammerjs';
 
 import { AppComponent } from './app.component';
@@ -21,6 +21,7 @@ import { appRoutes } from './app.routes';
 import { TaskListModule } from './task-list/task-list.module';
 import { LoginModule } from './login/login.module';
 import { loginReducer } from './login/login.reducer';
+import { CitiesModule } from './cities/cities.module';
 
 export function logger(reducer): any {
     return storeLogger()(reducer);
@@ -36,9 +37,11 @@ export const metaReducers = environment.production ? [] : [logger];
         BrowserModule,
         BrowserAnimationsModule,
         FormsModule,
+        MdButtonModule,
         MdToolbarModule,
         TaskListModule,
         RegistrationModule,
+        CitiesModule,
         LoginModule,
         RouterModule.forRoot(appRoutes),
         StoreModule.forRoot({ tasks: taskReducer, registration: registrationReducer, login: loginReducer }, { metaReducers })

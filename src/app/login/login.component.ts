@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Login, AppState } from '../app.state';
 import { Store } from '@ngrx/store';
-import { MODIFY } from './login.actions';
+import { MODIFY, LOGIN } from './login.actions';
 import { CognitoUserPool, CognitoUserAttribute, CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-login',
@@ -15,7 +16,7 @@ export class LoginComponent {
     model: Observable<Login>;
     userPool: CognitoUserPool;
 
-    constructor(private store: Store<AppState>) {
+    constructor(private store: Store<AppState>, private router: Router) {
         this.model = store.select('login');
 
         const poolData = {
@@ -26,14 +27,16 @@ export class LoginComponent {
     }
 
     modify(field, value) {
-        this.model[field] = value;
-        this.store.dispatch({ type: MODIFY, login: this.model });
+        this.model.subscribe(model => {
+            model[field] = value;
+            this.store.dispatch({ type: MODIFY, model: model });
+        }).unsubscribe();
     }
 
     login() {
         this.model.subscribe((login: Login) => {
             this.loginAws(login.email, login.password);
-        });
+        }).unsubscribe();
     }
 
     loginAws(email, password) {
@@ -49,13 +52,11 @@ export class LoginComponent {
         };
         const cognitoUser = new CognitoUser(userData);
         cognitoUser.authenticateUser(authenticationDetails, {
-            onSuccess: function (result) {
-                console.log('access token + ' + result.getAccessToken().getJwtToken());
+            onSuccess: result => {
+                this.store.dispatch({ type: LOGIN, user: cognitoUser });
+                this.router.navigate(['/']);
             },
-
-            onFailure: function (err) {
-                alert(err);
-            },
+            onFailure: err => alert(err)
         });
     }
 

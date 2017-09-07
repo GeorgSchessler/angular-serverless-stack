@@ -1,3 +1,4 @@
+import { CognitoUser } from 'amazon-cognito-identity-js';
 export interface AppState {
     tasks: Task[];
     registration: Registration;
@@ -19,4 +20,5 @@ export interface Registration {
 export interface Login {
     email: string;
     password: string;
+    user: CognitoUser;
 }

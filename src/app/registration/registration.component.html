@@ -1,22 +1,45 @@
-<h1>Create Account</h1>
-<form class="example-form">
-    <md-form-field>
-        <input name="email" mdInput placeholder="Username" [value]="(registration | async).email" (change)="modify('email', $event.target.value)">
-    </md-form-field>
-    <md-form-field>
-        <input name="password" mdInput placeholder="Password" [value]="(registration | async).password" (change)="modify('password', $event.target.value)">
-    </md-form-field>
-    <md-form-field>
-        <input name="passwordRepeat" mdInput placeholder="Repeat Password" [value]="(registration | async).passwordRepeat" (change)="modify('passwordRepeat', $event.target.value)">
-    </md-form-field>
-</form>
-<h1>Confirmation</h1>
-<form class="example-form">
-    <md-form-field>
-        <input name="email" mdInput placeholder="Username" [value]="(registration | async).email" (change)="modify('email', $event.target.value)">
-    </md-form-field>
-    <md-form-field>
-        <input name="code" mdInput placeholder="Code" [value]="(registration | async).code" (change)="modify('code', $event.target.value)">
-    </md-form-field>
-</form>
-<button md-button (click)="confirm()">Confirm</button>
+<div class="center">
+    <md-card class="example-card">
+        <md-card-header>
+            <div md-card-avatar><i class="material-icons">account_circle</i></div>
+            <md-card-title>Create Account</md-card-title>
+        </md-card-header>
+        <md-card-content>
+            <form>
+                <md-form-field>
+                    <input name="email" mdInput placeholder="E-Mail" [value]="(model | async).email" (change)="modify('email', $event.target.value)">
+                </md-form-field>
+                <md-form-field>
+                    <input name="password" mdInput placeholder="Password" type="password" [value]="(model | async).password" (change)="modify('password', $event.target.value)">
+                </md-form-field>
+                <md-form-field>
+                    <input name="passwordRepeat" mdInput placeholder="Repeat Password" type="password" [value]="(model | async).passwordRepeat" (change)="modify('passwordRepeat', $event.target.value)">
+                </md-form-field>
+            </form>
+        </md-card-content>
+        <md-card-actions>
+            <button md-button (click)="register()">Register</button>
+        </md-card-actions>
+    </md-card>
+</div>
+<div class="center">
+    <md-card class="example-card">
+        <md-card-header>
+            <div md-card-avatar><i class="material-icons">account_circle</i></div>
+            <md-card-title>Confirm Account</md-card-title>
+        </md-card-header>
+        <md-card-content>
+            <form>
+                <md-form-field>
+                    <input name="email" mdInput placeholder="E-Mail" [value]="(model | async).email" (change)="modify('email', $event.target.value)">
+                </md-form-field>
+                <md-form-field>
+                    <input name="code" mdInput placeholder="Code" type="password" [value]="(model | async).code" (change)="modify('code', $event.target.value)">
+                </md-form-field>
+            </form>
+        </md-card-content>
+        <md-card-actions>
+            <button md-button (click)="confirm()">Confirm</button>
+        </md-card-actions>
+    </md-card>
+</div>

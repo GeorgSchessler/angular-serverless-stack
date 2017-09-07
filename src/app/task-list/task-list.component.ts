@@ -12,10 +12,10 @@ import { AppState, Task } from '../app.state';
 })
 export class TaskListComponent {
 
-    tasks: Observable<Task[]>;
+    model: Observable<Task[]>;
 
     constructor(private store: Store<AppState>) {
-        this.tasks = store.select('tasks');
+        this.model = store.select('tasks');
     }
 
     addTask() {

@@ -1,10 +1,21 @@
-<h1>Login</h1>
-<form class="example-form">
-    <md-form-field>
-        <input name="email" mdInput placeholder="Username" [value]="(model | async).email" (change)="modify('email', $event.target.value)">
-    </md-form-field>
-    <md-form-field>
-        <input name="password" mdInput placeholder="Password" [value]="(model | async).password" (change)="modify('password', $event.target.value)">
-    </md-form-field>
-</form>
-<button md-button (click)="login()">Login</button>
+<div class="center">
+    <md-card class="example-card">
+        <md-card-header>
+            <div md-card-avatar><i class="material-icons">account_circle</i></div>
+            <md-card-title>Login</md-card-title>
+        </md-card-header>
+        <md-card-content>
+            <form>
+                <md-form-field>
+                    <input name="email" mdInput placeholder="E-Mail" [value]="(model | async).email" (change)="modify('email', $event.target.value)">
+                </md-form-field>
+                <md-form-field>
+                    <input name="password" mdInput placeholder="Password" type="password" [value]="(model | async).password" (change)="modify('password', $event.target.value)">
+                </md-form-field>
+            </form>
+        </md-card-content>
+        <md-card-actions>
+            <button md-button routerLink="/" (click)="login()">Login</button>
+        </md-card-actions>
+    </md-card>
+</div>

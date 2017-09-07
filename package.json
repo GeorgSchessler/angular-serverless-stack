@@ -3,8 +3,8 @@
     "version": "0.0.2",
     "license": "MIT",
     "config": {
-        "name": "pac3weycle",
-        "domain": "pac3weycle.com"
+        "name": "pa-lifecycle",
+        "domain": "pa-lifecycle.com"
     },
     "scripts": {
         "ng": "ng",

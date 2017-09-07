@@ -13,11 +13,7 @@ export class TaskComponent {
     @Input() task: Task;
     @Input() index: number;
 
-    tasks: Observable<Task[]>;
-
-    constructor(private store: Store<AppState>) {
-        this.tasks = store.select('tasks');
-    }
+    constructor(private store: Store<AppState>) {}
 
     modify(field, value) {
         this.task[field] = value;

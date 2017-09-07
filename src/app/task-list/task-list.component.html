@@ -5,7 +5,7 @@
     <button md-button (click)="addTask()">Add Task</button>
 </div>
 <md-tab-group>
-    <md-tab *ngFor="let task of (tasks | async); let i = index" label="{{task.title}}">
+    <md-tab *ngFor="let task of (model | async); let i = index" label="{{task.title}}">
         <app-task [task]="task" [index]="i"></app-task>
     </md-tab>
 </md-tab-group>

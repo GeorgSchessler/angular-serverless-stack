@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { ADD, MODIFY, DELETE } from './task-list/task-list.actions';
-import { AppState, Task } from './app.state';
-
+import { AppState, Login } from './app.state';
+import { LOGOUT } from './login/login.actions';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-root',
@@ -11,9 +11,17 @@ import { AppState, Task } from './app.state';
     styleUrls: ['./app.component.styl']
 })
 export class AppComponent {
-    tasks: Observable<Task[]>;
+    model: Observable<Login>;
 
-    constructor(private store: Store<AppState>) {
-        this.tasks = store.select('tasks');
+    constructor(private store: Store<AppState>, private router: Router) {
+        this.model = store.select('login');
+    }
+
+    logout() {
+        this.model.subscribe(login => {
+            console.log(login);
+            login.user.signOut();
+            this.store.dispatch({ type: LOGOUT });
+        });
     }
 }

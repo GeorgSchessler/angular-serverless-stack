@@ -12,11 +12,11 @@ import { MODIFY, DELETE } from './registration.actions';
 })
 export class RegistrationComponent {
 
-    registration: Observable<Registration>;
+    model: Observable<Registration>;
     userPool: CognitoUserPool;
 
     constructor(private store: Store<AppState>) {
-        this.registration = store.select('registration');
+        this.model = store.select('registration');
 
         const poolData = {
             UserPoolId: 'eu-west-1_f3NzDdtTt', // Your user pool id here
@@ -26,12 +26,14 @@ export class RegistrationComponent {
     }
 
     modify(field, value) {
-        this.registration[field] = value;
-        this.store.dispatch({ type: MODIFY, registration: this.registration });
+        this.model.subscribe(model => {
+            model[field] = value;
+            this.store.dispatch({ type: MODIFY, model: model });
+        });
     }
 
     register() {
-        this.registration.subscribe((user: Registration) => {
+        this.model.subscribe((user: Registration) => {
             if (user.password === user.passwordRepeat) {
                 this.registerAws(user.email, user.password);
             }
@@ -39,7 +41,7 @@ export class RegistrationComponent {
     }
 
     confirm() {
-        this.registration.subscribe((user: Registration) => {
+        this.model.subscribe((user: Registration) => {
             this.confirmAws(user.email, user.code);
         });
     }

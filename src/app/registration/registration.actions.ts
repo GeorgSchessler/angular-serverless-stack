@@ -6,7 +6,7 @@ export const DELETE = '[REGISTRATION] Delete';
 export class Modify implements Action {
     readonly type = MODIFY;
 
-    constructor(public registration: Object) { }
+    constructor(public model: Object) { }
 }
 
 export class Delete implements Action {
