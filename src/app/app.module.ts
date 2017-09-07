@@ -22,6 +22,7 @@ import { TaskListModule } from './task-list/task-list.module';
 import { LoginModule } from './login/login.module';
 import { loginReducer } from './login/login.reducer';
 import { CitiesModule } from './cities/cities.module';
+import { EventsModule } from './events/events.module';
 
 export function logger(reducer): any {
     return storeLogger()(reducer);
@@ -42,6 +43,7 @@ export const metaReducers = environment.production ? [] : [logger];
         TaskListModule,
         RegistrationModule,
         CitiesModule,
+        EventsModule,
         LoginModule,
         RouterModule.forRoot(appRoutes),
         StoreModule.forRoot({ tasks: taskReducer, registration: registrationReducer, login: loginReducer }, { metaReducers })
