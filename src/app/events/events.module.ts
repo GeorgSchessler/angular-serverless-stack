@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EventsComponent } from './events.component';
-import {MdListModule} from '@angular/material';
+import { MdListModule, MdCardModule, MdButtonModule } from '@angular/material';
 
 @NgModule({
   imports: [
     CommonModule,
-    MdListModule
+    MdListModule,
+    MdButtonModule,
+    MdCardModule
   ],
   declarations: [EventsComponent]
 })
