@@ -1,8 +1,22 @@
 .example-fill-remaining-space
     flex 1 1 auto
 
-a
+a, button
     color white
+
+i
+    cursor pointer   
+    position relative
+    top -2px
 
 md-toolbar
     margin-bottom 50px
+
+.mat-toolbar-row
+    flex-wrap wrap
+
+@media (max-width: 600px)
+    button
+        min-width 0
+    button span
+        display none
