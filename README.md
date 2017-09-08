@@ -1,6 +1,14 @@
 # AngularServerlessStack
 
-... under development
+A free stack to be used for angular projects which shall be publisches on an aws serverless distribution. The example application is a meetup finder for cities.
+
+## Features
+- Angular with angular cli
+- Redux
+- Material Design
+- Amazon Cognito
+- Amazon S3
+- Amazon CloudFront
 
 ## Development server
 
@@ -32,7 +40,15 @@ To publish your code to AWS your need to
 - create an [Access Key](https://console.aws.amazon.com/iam/home?region=eu-west-1#/security_credential)
 - set up your aws cli client in your terminal with: aws configure
 - enable cloudfron preview commands: aws configure set preview.cloudfront true
+- Configure package.json under config for your needs with unique names
 
 ## Init aws instance
 
-Run `yarn aws:create` to initialize 
+Run `yarn aws:create` to initialize your project. This will create a s3 bucket and also a distribution on cloudfront.
+
+## Update your project
+
+Run `yarn aws:update` to update the s3 bucket. You may need manually to delete the cloudfront cache to ensure an update.
+
+# License
+This project is licensed under MIT and can be used for projects. Please be aware not to use the images which only included for development purpose (published unter common creative licence on Flickr).

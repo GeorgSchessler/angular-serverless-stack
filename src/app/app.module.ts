@@ -9,16 +9,12 @@ import { MdButtonModule, MdToolbarModule } from '@angular/material';
 import 'hammerjs';
 
 import { AppComponent } from './app.component';
-import { TaskListComponent } from './task-list/task-list.component';
-import { taskReducer } from './task-list/task-list.reducer';
-import { TaskComponent } from './task/task.component';
 import { environment } from '../environments/environment';
 import { RegistrationComponent } from './registration/registration.component';
 import { RouterModule } from '@angular/router';
 import { RegistrationModule } from './registration/registration.module';
 import { registrationReducer } from './registration/registration.reducer';
 import { appRoutes } from './app.routes';
-import { TaskListModule } from './task-list/task-list.module';
 import { LoginModule } from './login/login.module';
 import { loginReducer } from './login/login.reducer';
 import { CitiesModule } from './cities/cities.module';
@@ -40,13 +36,12 @@ export const metaReducers = environment.production ? [] : [logger];
         FormsModule,
         MdButtonModule,
         MdToolbarModule,
-        TaskListModule,
         RegistrationModule,
         CitiesModule,
         EventsModule,
         LoginModule,
         RouterModule.forRoot(appRoutes),
-        StoreModule.forRoot({ tasks: taskReducer, registration: registrationReducer, login: loginReducer }, { metaReducers })
+        StoreModule.forRoot({ registration: registrationReducer, login: loginReducer }, { metaReducers })
     ],
     providers: [],
     bootstrap: [AppComponent]

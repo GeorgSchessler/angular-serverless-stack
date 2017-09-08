@@ -22,6 +22,6 @@ export class AppComponent {
             console.log(login);
             login.user.signOut();
             this.store.dispatch({ type: LOGOUT });
-        });
+        }).unsubscribe();
     }
 }

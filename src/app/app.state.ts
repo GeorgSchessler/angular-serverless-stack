@@ -1,13 +1,7 @@
 import { CognitoUser } from 'amazon-cognito-identity-js';
 export interface AppState {
-    tasks: Task[];
     registration: Registration;
     login: Login;
-}
-
-export interface Task {
-    title: string;
-    description: string;
 }
 
 export interface Registration {
