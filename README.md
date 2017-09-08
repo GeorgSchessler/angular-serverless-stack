@@ -51,4 +51,4 @@ Run `yarn aws:create` to initialize your project. This will create a s3 bucket a
 Run `yarn aws:update` to update the s3 bucket. You may need manually to delete the cloudfront cache to ensure an update.
 
 # License
-This project is licensed under MIT and can be used for projects. Please be aware not to use the images which only included for development purpose (published unter common creative licence on Flickr).
+This project is licensed under MIT and can be used for your projects. Please be aware not to use the images which are only included for development purpose (published unter common creative licence on Flickr).
