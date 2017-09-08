@@ -6,7 +6,7 @@ export type Action = Actions.All;
 export function loginReducer(state: Login = { email: '', password: '', user: undefined }, action: Action) {
     switch (action.type) {
         case Actions.MODIFY: {
-            return action.model;
+            return {...state, ...action.model};
         }
 
         case Actions.DELETE: {

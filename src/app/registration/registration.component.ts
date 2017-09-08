@@ -26,10 +26,7 @@ export class RegistrationComponent {
     }
 
     modify(field, value) {
-        this.model.subscribe(model => {
-            model[field] = value;
-            this.store.dispatch({ type: MODIFY, model: model });
-        });
+        this.store.dispatch({ type: MODIFY, model: {[field]: value} });
     }
 
     register() {

@@ -27,10 +27,7 @@ export class LoginComponent {
     }
 
     modify(field, value) {
-        this.model.subscribe(model => {
-            model[field] = value;
-            this.store.dispatch({ type: MODIFY, model: model });
-        }).unsubscribe();
+        this.store.dispatch({ type: MODIFY, model: {[field]: value} });
     }
 
     login() {
