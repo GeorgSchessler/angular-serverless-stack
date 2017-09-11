@@ -14,9 +14,9 @@ import { Subject } from 'rxjs/Subject';
 })
 export class EventsComponent implements OnInit {
 
-    private eventList = new BehaviorSubject([]);
-    private dateList = new BehaviorSubject([]);
-    private city = new BehaviorSubject('');
+    public eventList = new BehaviorSubject([]);
+    public dateList = new BehaviorSubject([]);
+    public city = new BehaviorSubject('');
 
 
     constructor(private router: Router, private route: ActivatedRoute) { }

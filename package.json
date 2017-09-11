@@ -13,16 +13,24 @@
         "test": "ng test",
         "lint": "ng lint",
         "e2e": "ng e2e",
-        "aws:create": "run-s 'build' 'aws:bucket' 'aws:sync' 'aws:policy' 'aws:website' 'aws:cdn'",
-        "aws:update": "run-s 'build' 'aws:sync'",
+        "aws:create": "run-s 'content:update' 'build' 'aws:bucket' 'aws:sync' 'aws:policy' 'aws:website' 'aws:cdn'",
+        "aws:update": "yarn content:update && yarn build && yarn aws:sync",
         "aws:bucket": "aws s3 mb s3://$npm_package_config_name",
         "aws:sync": "aws s3 sync ./dist/ s3://$npm_package_config_name",
         "aws:policy": "aws s3api put-bucket-policy --bucket $npm_package_config_name --policy '{\"Version\":\"2012-10-17\",\"Statement\":[{\"Sid\":\"AddPerm\",\"Effect\":\"Allow\",\"Principal\": \"*\",\"Action\":[\"s3:GetObject\"],\"Resource\":[\"arn:aws:s3:::'$npm_package_config_name'/*\"]}]}'",
         "aws:website": "aws s3 website s3://$npm_package_config_name --index-document index.html",
-        "aws:cdn": "aws cloudfront create-distribution --cli-input-json '{\"DistributionConfig\": {\"Comment\": \"\", \"CacheBehaviors\": {\"Quantity\": 0}, \"Logging\": {\"Bucket\": \"\", \"Prefix\": \"\", \"Enabled\": false, \"IncludeCookies\": false}, \"Origins\": {\"Items\": [{\"OriginPath\": \"/'$npm_package_config_name'\", \"CustomOriginConfig\": {\"OriginProtocolPolicy\": \"http-only\", \"HTTPPort\": 80, \"HTTPSPort\": 443}, \"Id\": \"custom-s3-eu-west-1.amazonaws.com/'$npm_package_config_name'\", \"DomainName\": \"s3-eu-west-1.amazonaws.com\"}], \"Quantity\": 1}, \"DefaultRootObject\": \"index.html\", \"PriceClass\": \"PriceClass_All\", \"Enabled\": true, \"DefaultCacheBehavior\": {\"TrustedSigners\": {\"Enabled\": false, \"Quantity\": 0}, \"TargetOriginId\": \"custom-s3-eu-west-1.amazonaws.com/'$npm_package_config_name'\", \"ViewerProtocolPolicy\": \"allow-all\", \"ForwardedValues\": {\"Headers\": {\"Quantity\": 0}, \"Cookies\": {\"Forward\": \"none\"}, \"QueryString\": false}, \"SmoothStreaming\": false, \"AllowedMethods\": {\"Items\": [\"GET\", \"HEAD\"], \"CachedMethods\": {\"Items\": [\"GET\", \"HEAD\"], \"Quantity\": 2 }, \"Quantity\": 2}, \"MinTTL\": 0}, \"CallerReference\": \"'$npm_package_config_name'\", \"CustomErrorResponses\": {\"Quantity\": 0}, \"Restrictions\": {\"GeoRestriction\": {\"RestrictionType\": \"none\", \"Quantity\": 0}}, \"Aliases\": {\"Items\": [\"'$npm_package_config_domain'\"], \"Quantity\": 1}}}'"
+        "aws:cdn": "aws cloudfront create-distribution --cli-input-json '{\"DistributionConfig\": {\"Comment\": \"\", \"CacheBehaviors\": {\"Quantity\": 0}, \"Logging\": {\"Bucket\": \"\", \"Prefix\": \"\", \"Enabled\": false, \"IncludeCookies\": false}, \"Origins\": {\"Items\": [{\"OriginPath\": \"/'$npm_package_config_name'\", \"CustomOriginConfig\": {\"OriginProtocolPolicy\": \"http-only\", \"HTTPPort\": 80, \"HTTPSPort\": 443}, \"Id\": \"custom-s3-eu-west-1.amazonaws.com/'$npm_package_config_name'\", \"DomainName\": \"s3-eu-west-1.amazonaws.com\"}], \"Quantity\": 1}, \"DefaultRootObject\": \"index.html\", \"PriceClass\": \"PriceClass_All\", \"Enabled\": true, \"DefaultCacheBehavior\": {\"TrustedSigners\": {\"Enabled\": false, \"Quantity\": 0}, \"TargetOriginId\": \"custom-s3-eu-west-1.amazonaws.com/'$npm_package_config_name'\", \"ViewerProtocolPolicy\": \"allow-all\", \"ForwardedValues\": {\"Headers\": {\"Quantity\": 0}, \"Cookies\": {\"Forward\": \"none\"}, \"QueryString\": false}, \"SmoothStreaming\": false, \"AllowedMethods\": {\"Items\": [\"GET\", \"HEAD\"], \"CachedMethods\": {\"Items\": [\"GET\", \"HEAD\"], \"Quantity\": 2 }, \"Quantity\": 2}, \"MinTTL\": 0}, \"CallerReference\": \"'$npm_package_config_name'\", \"CustomErrorResponses\": {\"Quantity\": 0}, \"Restrictions\": {\"GeoRestriction\": {\"RestrictionType\": \"none\", \"Quantity\": 0}}, \"Aliases\": {\"Items\": [\"'$npm_package_config_domain'\"], \"Quantity\": 1}}}'",
+        "content:update": "node updateContent.js"
     },
     "private": true,
     "dependencies": {
+        "amazon-cognito-identity-js": "^1.19.0",
+        "core-js": "^2.4.1",
+        "hammerjs": "^2.0.8",
+        "ngrx-store-logger": "^0.2.0",
+        "rxjs": "^5.4.2"
+    },
+    "devDependencies": {
         "@angular/animations": "^4.2.4",
         "@angular/cdk": "^2.0.0-beta.10",
         "@angular/common": "^4.2.4",
@@ -35,14 +43,6 @@
         "@angular/platform-browser-dynamic": "^4.2.4",
         "@angular/router": "^4.2.4",
         "@ngrx/store": "^4.0.3",
-        "amazon-cognito-identity-js": "^1.19.0",
-        "core-js": "^2.4.1",
-        "hammerjs": "^2.0.8",
-        "ngrx-store-logger": "^0.2.0",
-        "rxjs": "^5.4.2",
-        "zone.js": "^0.8.14"
-    },
-    "devDependencies": {
         "@angular/cli": "1.4.0",
         "@angular/compiler-cli": "^4.2.4",
         "@angular/language-service": "^4.2.4",
@@ -50,6 +50,8 @@
         "@types/jasminewd2": "~2.0.2",
         "@types/node": "^8.0.26",
         "codelyzer": "~3.1.1",
+        "csvtojson": "^1.1.7",
+        "dustjs-linkedin": "^2.7.5",
         "jasmine-core": "~2.6.2",
         "jasmine-spec-reporter": "~4.1.0",
         "karma": "~1.7.0",
@@ -62,6 +64,7 @@
         "protractor": "~5.1.2",
         "ts-node": "^3.3.0",
         "tslint": "5.7.0",
-        "typescript": "~2.3.3"
+        "typescript": "~2.3.3",
+        "zone.js": "^0.8.14"
     }
 }
