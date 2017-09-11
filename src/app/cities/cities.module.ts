@@ -4,11 +4,11 @@ import { CitiesComponent } from './cities.component';
 import { MdButtonModule, MdCardModule } from '@angular/material';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    MdButtonModule,
-    MdCardModule
-  ],
-  declarations: [CitiesComponent]
+    imports: [
+        CommonModule,
+        MdButtonModule,
+        MdCardModule
+    ],
+    declarations: [CitiesComponent]
 })
 export class CitiesModule { }

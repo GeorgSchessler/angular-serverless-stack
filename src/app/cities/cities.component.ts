@@ -12,8 +12,8 @@ export class CitiesComponent {
 
     constructor(private router: Router) { }
 
-    route() {
-        this.router.navigate(['/events']);
+    route(city) {
+        this.router.navigate(['/events/' + city]);
     }
 
 }

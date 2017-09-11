@@ -1,72 +1,34 @@
-<h2>10. September 2010</h2>
-<div class="center">
-    <md-card>
-        <md-card-header>
-            <md-card-title><h3>Local</h3></md-card-title>
-        </md-card-header>
-        <img md-card-image src="assets/tanz_default.jpg" alt="Dance">
-        <md-card-content>
-            <p>Party</p>
-        </md-card-content>
-        <md-card-actions>
-            <button md-button>
-                <i class="material-icons">bookmark</i>
-                <span>Website</span>
-            </button>
-            <button md-button>
-                <i class="material-icons">share</i>
-                <span>Facebook</span>
-            </button>
-            <button md-button>
-                <i class="material-icons">map</i>
-                <span>Map</span>
-            </button>
-        </md-card-actions>
-    </md-card>
-    <md-card>
-        <md-card-header>
-            <md-card-title><h3>Local</h3></md-card-title>
-        </md-card-header>
-        <img md-card-image src="assets/tanz_chacha.jpg" alt="Dance">
-        <md-card-content>
-            <p>Party</p>
-        </md-card-content>
-        <md-card-actions>
-            <button md-button>
-                <i class="material-icons">bookmark</i>
-                <span>Website</span>
-            </button>
-            <button md-button>
-                <i class="material-icons">share</i>
-                <span>Facebook</span>
-            </button>
-            <button md-button>
-                <i class="material-icons">map</i>
-                <span>Map</span>
-            </button>
-        </md-card-actions>
-    </md-card>
-    <md-card>
-        <md-card-header>
-            <md-card-title><h3>Local</h3></md-card-title>
-        </md-card-header>
-        <img md-card-image src="assets/tanz_default.jpg" alt="Dance">
-        <md-card-content>
-            <p>Party</p>
-        </md-card-content>
-        <md-card-actions>
-            <button md-button>
-                <i class="material-icons">bookmark</i>
-                <span>Website</span>
-            </button>
-            <button md-button>
-                <i class="material-icons">share</i>
-                <span>Facebook</span>
-            </button>
-            <button md-button>
-                <i class="material-icons">map</i>
-                <span>Map</span>
-            </button>
-        </md-card-actions>
-    </md-card>
+<h1>Events for {{city | async}}</h1>
+<h2 *ngIf="(eventList | async).length === 0">No events found</h2>
+<div *ngFor="let date of dateList | async">
+    <h2>{{date}}</h2>
+    <div class="center">
+        <div *ngFor="let event of eventList | async">
+        <md-card *ngIf="event.date === date">
+            <md-card-header>
+                <md-card-title>
+                    <h3>{{event.name}}</h3>
+                </md-card-title>
+            </md-card-header>
+            <img md-card-image src="assets/tanz_{{event.pic || 'default'}}.jpg" alt="Dance">
+            <md-card-content>
+                <p>{{event.description}}</p>
+            </md-card-content>
+            <md-card-actions>
+                <button md-button *ngIf="event.website" (click)="routeWebsite(event.website)">
+                    <i class="material-icons">bookmark</i>
+                    <span>Website</span>
+                </button>
+                <button md-button *ngIf="event.facebook" (click)="routeFacebook(event.facebook)">
+                    <i class="material-icons">share</i>
+                    <span>Facebook</span>
+                </button>
+                <button md-button *ngIf="event.address" (click)="routeMap(event.address)">
+                    <i class="material-icons">map</i>
+                    <span>{{event.address}}</span>
+                </button>
+            </md-card-actions>
+        </md-card>
+    </div>
+    </div>
 </div>
