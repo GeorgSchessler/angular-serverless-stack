@@ -10,10 +10,19 @@ export class CitiesComponent {
 
     public cities = ['Berlin', 'Frankfurt', 'Hamburg', 'München', 'Stuttgart'];
 
-    constructor(private router: Router) { }
+    constructor(private router: Router) {
+        const location = window.location.href.endsWith('cities');
+        const defaultCity = window.localStorage.getItem('defaultCity');
+        if (!location && defaultCity) this.route(defaultCity);
+    }
 
     route(city) {
         this.router.navigate(['/events/' + city]);
+    }
+
+    setDefault(city) {
+        window.localStorage.setItem('defaultCity', city);
+        this.route(city);
     }
 
 }
