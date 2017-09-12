@@ -14,8 +14,8 @@ export class CongnitoService {
 
     constructor(private store: Store<AppState>, private router: Router) {
         const poolData = {
-            UserPoolId: 'eu-west-1_f3NzDdtTt', // Your user pool id here
-            ClientId: '3uib4sjo297okfdd6gvld257qu' // Your client id here
+            UserPoolId: 'yourValue', // Your user pool id here
+            ClientId: 'yourValue' // Your client id here
         };
 
         this.userPool = new CognitoUserPool(poolData);
@@ -74,18 +74,17 @@ export class CongnitoService {
 
                 attributeList.push(attributeEmail);
 
-                console.log('Register with ', registration.password);
                 this.userPool.signUp(registration.email, registration.password, attributeList, null, (err, result) => {
                     if (err) {
                         alert(err);
                         return;
                     }
+                    alert('Your account is created. Please check your mails for the confirmation code.');
                     this.user = result.user;
-                    console.log('user name is ' + this.user.getUsername());
                     this.store.dispatch({ type: DELETE });
                 });
             }
-        });
+        }).unsubscribe();
     }
 
     confirm() {
@@ -101,9 +100,10 @@ export class CongnitoService {
                     alert(err);
                     return;
                 }
-                console.log('call result: ' + result);
+                alert('Your account is confirmed');
+                this.router.navigate(['/login']);
             });
-        });
+        }).unsubscribe();
     }
 
     logout() {

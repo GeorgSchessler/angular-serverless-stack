@@ -9,6 +9,11 @@ A free stack to be used for angular projects which shall be publisches on an aws
 - Amazon Cognito
 - Amazon S3
 - Amazon CloudFront
+- Simple google drive sheet as database
+
+## Prerequisite
+
+You need yarn to be installed on your system. Run `yarn` inside the project directory to install the dependencies.
 
 ## Development server
 
@@ -22,14 +27,18 @@ Run `yarn ng generate component component-name` to generate a new component. You
 
 Run `yarn ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
 
-## Running unit tests
+## Running unit tests - not implemented
 
 Run `yarn ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
+## Running end-to-end tests - not implemented
 
 Run `yarn ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 Before running the tests make sure you are serving the app via `yarn ng serve`.
+
+# Google Drive Sheet Database
+
+Create a sheet in google drive and publish the content to web in csv format. Replace the link in `updateContent.js` and run `yarn content:update`.
 
 # Publish to AWS
 
@@ -38,13 +47,13 @@ Before running the tests make sure you are serving the app via `yarn ng serve`.
 To publish your code to AWS your need to 
 - install the [Amazon CLI](https://aws.amazon.com/cli/)
 - create an [Access Key](https://console.aws.amazon.com/iam/home?region=eu-west-1#/security_credential)
-- set up your aws cli client in your terminal with: aws configure
-- enable cloudfron preview commands: aws configure set preview.cloudfront true
-- Configure package.json under config for your needs with unique names
+- set up your aws cli client in your terminal with: `aws configure`
+- enable cloudfront preview commands: `aws configure set preview.cloudfront true`
+- set package.json configuration for `name` and `domain`
 
 ## Init aws instance
 
-Run `yarn aws:create` to initialize your project. This will create a s3 bucket and also a distribution on cloudfront.
+Run `yarn aws:create:part1` to initialize your project. Copy the `Id` from the end of the output to the package.json config `poolid`. Run `yarn aws:userpoolclient` and insert the values of `UserPoolId` and `ClientId` into `./src/app/cognito.service.ts`. Run `yarn aws:create:part2` to finish the initialization.
 
 ## Update your project
 
