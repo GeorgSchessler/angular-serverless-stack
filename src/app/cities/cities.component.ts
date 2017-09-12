@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CongnitoService } from '../congnito.service';
 
 @Component({
     selector: 'app-cities',
@@ -10,10 +11,9 @@ export class CitiesComponent {
 
     public cities = ['Berlin', 'Frankfurt', 'Hamburg', 'München', 'Stuttgart'];
 
-    constructor(private router: Router) {
-        const location = window.location.href.endsWith('cities');
+    constructor(private router: Router, private congnitoService: CongnitoService) {
         const defaultCity = window.localStorage.getItem('defaultCity');
-        if (!location && defaultCity) this.route(defaultCity);
+        if (!window.location.href.endsWith('cities') && defaultCity) this.route(defaultCity);
     }
 
     route(city) {

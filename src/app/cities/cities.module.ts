@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CitiesComponent } from './cities.component';
 import { MdButtonModule, MdCardModule } from '@angular/material';
+import { CongnitoService } from '../congnito.service';
 
 @NgModule({
     imports: [
@@ -9,6 +10,11 @@ import { MdButtonModule, MdCardModule } from '@angular/material';
         MdButtonModule,
         MdCardModule
     ],
-    declarations: [CitiesComponent]
+    declarations: [
+        CitiesComponent
+    ],
+    providers: [
+        CongnitoService
+    ]
 })
 export class CitiesModule { }
