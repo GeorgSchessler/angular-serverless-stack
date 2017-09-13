@@ -1,34 +1,39 @@
 <h1>Events for {{city | async}}</h1>
 <h2 *ngIf="(eventList | async).length === 0">No events found</h2>
+<form class="search-form">
+    <md-form-field>
+        <input name="search" mdInput placeholder="Search" [value]="searchValue | async" (change)="searchValue.next($event.target.value)">
+    </md-form-field>
+</form>
 <div *ngFor="let date of dateList | async">
     <h2>{{date}}</h2>
     <div class="center">
         <div *ngFor="let event of eventList | async">
-        <md-card *ngIf="event.date === date">
-            <md-card-header>
-                <md-card-title>
-                    <h3>{{event.name}}</h3>
-                </md-card-title>
-            </md-card-header>
-            <img md-card-image src="assets/tanz_{{event.pic || 'default'}}.jpg" alt="Dance">
-            <md-card-content>
-                <p>{{event.description}}</p>
-            </md-card-content>
-            <md-card-actions>
-                <button md-button *ngIf="event.website" (click)="routeWebsite(event.website)">
+            <md-card *ngIf="event.date === date">
+                <md-card-header>
+                    <md-card-title>
+                        <h3>{{event.name}}</h3>
+                    </md-card-title>
+                </md-card-header>
+                <img md-card-image src="assets/tanz_{{event.pic || 'default'}}.jpg" alt="Dance">
+                <md-card-content>
+                    <p>{{event.description}}</p>
+                </md-card-content>
+                <md-card-actions>
+                    <button md-button *ngIf="event.website" (click)="routeWebsite(event.website)">
                     <i class="material-icons">bookmark</i>
                     <span>Website</span>
                 </button>
-                <button md-button *ngIf="event.facebook" (click)="routeFacebook(event.facebook)">
+                    <button md-button *ngIf="event.facebook" (click)="routeFacebook(event.facebook)">
                     <i class="material-icons">share</i>
                     <span>Facebook</span>
                 </button>
-                <button md-button *ngIf="event.address" (click)="routeMap(event.address)">
+                    <button md-button *ngIf="event.address" (click)="routeMap(event.address)">
                     <i class="material-icons">map</i>
                     <span>{{event.address}}</span>
                 </button>
-            </md-card-actions>
-        </md-card>
-    </div>
+                </md-card-actions>
+            </md-card>
+        </div>
     </div>
 </div>

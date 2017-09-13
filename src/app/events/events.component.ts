@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { events } from './events';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import 'rxjs/add/operator/switchMap';
-import { Observable } from 'rxjs/Observable';
+import { Router, ActivatedRoute } from '@angular/router';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/combineLatest';
 
 
 @Component({
@@ -17,20 +16,20 @@ export class EventsComponent implements OnInit {
     public eventList = new BehaviorSubject([]);
     public dateList = new BehaviorSubject([]);
     public city = new BehaviorSubject('');
-
+    public searchValue = new BehaviorSubject('');
 
     constructor(private router: Router, private route: ActivatedRoute) { }
 
     ngOnInit() {
-        this.route.params.subscribe(params => {
-            if (params.city) {
-                this.city.next(params.city);
-                this.eventList.next(events.filter((event) => event.city === params.city));
-            }
-        });
+        this.route.params.subscribe(params => { if (params.city) this.city.next(params.city); });
 
         this.eventList.subscribe(allEvents => this.dateList.next(allEvents.map(event => event['date'])
             .filter((elem, pos, arr) => arr.indexOf(elem) === pos)));
+
+        Observable.combineLatest(this.city, this.searchValue).subscribe((values) => this.eventList.next(events
+            .filter(event => values[0] !== '' ? event.city === values[0] : true)
+            .filter(event => values[1] !== '' ? JSON.stringify(event).toLowerCase().includes(values[1].toLowerCase()) : true))
+        );
     }
 
     routeWebsite(ref: string) {
