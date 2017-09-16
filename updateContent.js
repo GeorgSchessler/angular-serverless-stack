@@ -3,11 +3,12 @@ const fs = require('fs');
 const https = require('https');
 const request = require('request')
 const csv = require('csvtojson')
+const package = require('./package.json');
 
 let events = []
 
 csv()
-    .fromStream(request.get('https://docs.google.com/spreadsheets/yourValue'))
+    .fromStream(request.get(package.config.eventcsv))
     .on('json', (csvRow) => {
         events.push(csvRow);
     })

@@ -3,9 +3,11 @@
   "version": "0.0.3",
   "license": "MIT",
   "config": {
-    "name": "yourValue",
-    "domain": "yourValue",
-    "poolid": "yourValue"
+    "name": "yourvalue",
+    "domain": "your domains comma seperated",
+    "poolid": "yourvalue",
+    "clientid": "yourvalue",
+    "eventcsv": "your url to google doc csv"
   },
   "scripts": {
     "ng": "ng",

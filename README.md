@@ -38,7 +38,7 @@ Before running the tests make sure you are serving the app via `yarn ng serve`.
 
 # Google Drive Sheet Database
 
-Create a sheet in google drive and publish the content to web in csv format. Replace the link in `updateContent.js` and run `yarn content:update`.
+Create a sheet in google drive and publish the content to web in csv format. Replace the link `eventcsv` in `package.json` and run `yarn content:update`.
 
 # Publish to AWS
 
@@ -53,7 +53,7 @@ To publish your code to AWS your need to
 
 ## Init aws instance
 
-Run `yarn aws:create:part1` to initialize your project. Copy the `Id` from the end of the output to the package.json config `poolid`. Run `yarn aws:userpoolclient` and insert the values of `UserPoolId` and `ClientId` into `./src/app/cognito.service.ts`. Run `yarn aws:create:part2` to finish the initialization.
+Run `yarn aws:create:part1` to initialize your project. Copy the `Id` from the end of the output to the package.json config `poolid`. Run `yarn aws:userpoolclient` and also replace `clientid` in package.json. Run `yarn aws:create:part2` to finish the initialization.
 
 ## Update your project
 

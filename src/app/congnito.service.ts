@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { AppState, Login, Registration } from './app.state';
 import { LOGIN, LOGOUT } from './login/login.actions';
 import { DELETE } from './registration/registration.actions';
+const packageConfig = require('../../package.json');
 
 @Injectable()
 export class CongnitoService {
@@ -14,8 +15,8 @@ export class CongnitoService {
 
     constructor(private store: Store<AppState>, private router: Router) {
         const poolData = {
-            UserPoolId: 'yourValue', // Your user pool id here
-            ClientId: 'yourValue' // Your client id here
+            UserPoolId: packageConfig.config.poolid,
+            ClientId: packageConfig.config.clientid
         };
 
         this.userPool = new CognitoUserPool(poolData);
@@ -61,7 +62,6 @@ export class CongnitoService {
 
     register() {
         this.store.select('registration').subscribe((registration: Registration) => {
-            console.log(registration);
             if (registration.password === registration.passwordRepeat) {
                 const attributeList = [];
 
