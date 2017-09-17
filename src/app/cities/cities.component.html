@@ -1,10 +1,12 @@
 <div class="center">
     <md-card *ngFor="let city of cities">
         <md-card-header>
-            <div md-card-avatar><i class="material-icons">pin_drop</i></div>
+            <div md-card-avatar>
+                <i class="material-icons pin">pin_drop</i>
+            </div>
             <md-card-title>{{city}}</md-card-title>
         </md-card-header>
-        <img md-card-image src="assets/{{city}}.jpg" alt="{{city}}">
+        <img md-card-image src="assets/{{city}}.jpg" alt="{{city}}" (click)="route(city)">
         <!--md-card-content>
             <p>10.5 Eventname</p>
             <p>12.6 Eventname</p>
@@ -12,8 +14,12 @@
         </md-card-content-->
         <md-card-actions>
             <!--button md-button (click)="route(city)">Events this week</button-->
-            <button md-button (click)="route(city)">All events</button>
-            <button md-button (click)="setDefault(city)">Set default</button>
+            <button md-button (click)="route(city)">
+                <i class="material-icons">list</i>
+            </button>
+            <button md-button (click)="setDefault(city)">
+                <i class="material-icons">favorite_border</i>
+            </button>
         </md-card-actions>
     </md-card>
 </div>

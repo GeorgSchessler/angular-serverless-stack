@@ -20,17 +20,21 @@
                     <p>{{event.description}}</p>
                 </md-card-content>
                 <md-card-actions>
-                    <button md-button *ngIf="event.website" (click)="routeWebsite(event.website)">
+                <button md-button *ngIf="event.website" (click)="routeWebsite(event.website)">
                     <i class="material-icons">bookmark</i>
                     <span>Website</span>
                 </button>
-                    <button md-button *ngIf="event.facebook" (click)="routeFacebook(event.facebook)">
+                <button md-button *ngIf="event.facebook" (click)="routeFacebook(event.facebook)">
                     <i class="material-icons">share</i>
                     <span>Facebook</span>
                 </button>
-                    <button md-button *ngIf="event.address" (click)="routeMap(event.address)">
+                <button md-button *ngIf="event.address" (click)="routeMap(event.address)">
                     <i class="material-icons">map</i>
-                    <span>{{event.address}}</span>
+                    <span>Karte</span>
+                </button>
+                <button md-button *ngIf="event.price">
+                    <i class="material-icons">euro_symbol</i>
+                    <span>{{event.price}}</span>
                 </button>
                 </md-card-actions>
             </md-card>
