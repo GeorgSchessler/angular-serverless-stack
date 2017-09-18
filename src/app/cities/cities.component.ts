@@ -20,8 +20,10 @@ export class CitiesComponent {
         this.router.navigate(['/events/' + city]);
     }
 
-    setDefault(city) {
+    favorite(city) {
         window.localStorage.setItem('defaultCity', city);
+        this.congnitoService.getAttribute('locale');
+        this.congnitoService.setAttribute('locale', city);
         this.route(city);
     }
 

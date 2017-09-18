@@ -65,14 +65,12 @@ export class CongnitoService {
             if (registration.password === registration.passwordRepeat) {
                 const attributeList = [];
 
-                const dataEmail = {
-                    Name: 'email',
-                    Value: registration.email
-                };
-
-                const attributeEmail = new CognitoUserAttribute(dataEmail);
-
-                attributeList.push(attributeEmail);
+                attributeList.push(
+                    userAttribute('email', registration.email),
+                    userAttribute('name', registration.firstName),
+                    userAttribute('family_name', registration.lastName),
+                    userAttribute('locale', '')
+                );
 
                 this.userPool.signUp(registration.email, registration.password, attributeList, null, (err, result) => {
                     if (err) {
@@ -111,25 +109,21 @@ export class CongnitoService {
         this.store.dispatch({ type: LOGOUT });
     }
 
-    // TODO: Implement a selector and return the value
-    private getAttribute(attribute) {
-        this.user.getUserAttributes(function (err, result) {
+    getAttribute(name) {
+        this.user.getUserAttributes((err, result) => {
             if (err) {
                 alert(err);
                 return;
             }
-            console.log(result);
+            const attribute = result.filter((attributeObject: CognitoUserAttribute) => attributeObject.getName() === name);
+            return attribute[0] ? attribute[0].getValue() : '';
         });
     }
 
-    // TODO: Permission is not given by amazon
-    private setAttribute(attribute, value) {
+    setAttribute(attribute, value) {
         const attributeList = [];
-        const newAttribute = new CognitoUserAttribute({
-            Name: attribute,
-            Value: value
-        });
-        attributeList.push(newAttribute);
+
+        attributeList.push(userAttribute(attribute, value));
 
         this.user.updateAttributes(attributeList, function (err, result) {
             if (err) {
@@ -139,4 +133,13 @@ export class CongnitoService {
             console.log('call result: ' + result);
         });
     }
+}
+
+function userAttribute(attribute, value) {
+    const data = {
+        Name: attribute,
+        Value: value
+    };
+
+    return new CognitoUserAttribute(data);
 }

@@ -3,14 +3,16 @@ import { Registration } from '../app.state';
 
 export type Action = Actions.All;
 
-export function registrationReducer(state: Registration = {email: '', password: '', passwordRepeat: '', code: ''}, action: Action) {
+const defaultModel = {email: '', firstName: '', lastName: '', password: '', passwordRepeat: '', code: ''};
+
+export function registrationReducer(state: Registration = defaultModel, action: Action) {
     switch (action.type) {
         case Actions.MODIFY: {
             return {...state, ...action.model};
         }
 
         case Actions.DELETE: {
-            return {email: state.email, password: '', passwordRepeat: ''};
+            return {...defaultModel, email: state.email};
         }
 
         default: {

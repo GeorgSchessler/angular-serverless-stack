@@ -3,7 +3,9 @@ import { Login } from '../app.state';
 
 export type Action = Actions.All;
 
-export function loginReducer(state: Login = { email: '', password: '', user: undefined }, action: Action) {
+const defaultModel = { email: '', password: '', user: undefined };
+
+export function loginReducer(state: Login = defaultModel, action: Action) {
     switch (action.type) {
         case Actions.MODIFY: {
             return {...state, ...action.model};
@@ -19,7 +21,7 @@ export function loginReducer(state: Login = { email: '', password: '', user: und
         }
 
         case Actions.LOGOUT: {
-            return { email: '', password: '', user: undefined };
+            return defaultModel;
         }
 
         default: {

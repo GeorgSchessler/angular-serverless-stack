@@ -6,6 +6,8 @@ export interface AppState {
 
 export interface Registration {
     email: string;
+    firstName: string;
+    lastName: string;
     password: string;
     passwordRepeat: string;
     code: string;
