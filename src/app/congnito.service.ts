@@ -3,9 +3,10 @@ import { CognitoUserPool, CognitoUserAttribute, CognitoUser, AuthenticationDetai
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState, Login, Registration } from './app.state';
-import { MODIFY } from './user/user.actions';
+import { MODIFY, DELETE as UserDELETE } from './user/user.actions';
 import { DELETE as RegistrationDELETE } from './registration/registration.actions';
 import { DELETE as LoginDELETE } from './login/login.actions';
+import { Subject } from 'rxjs/Subject';
 const packageConfig = require('../../package.json');
 
 @Injectable()
@@ -41,6 +42,9 @@ export class CongnitoService {
             this.user = new CognitoUser(userData);
             this.user.authenticateUser(authenticationDetails, {
                 onSuccess: result => {
+                    this.getAttribute('locale').subscribe((locale: string) => {
+                        this.store.dispatch({ type: MODIFY, model: { ['locale']: locale.split(',') } });
+                    });
                     this.store.dispatch({ type: MODIFY, model: { ['user']: this.user } });
                     this.router.navigate(['/']);
                 },
@@ -108,18 +112,25 @@ export class CongnitoService {
     logout() {
         this.user.signOut();
         this.store.dispatch({ type: LoginDELETE });
-        this.store.dispatch({ type: MODIFY, model: { ['user']: undefined} });
+        this.store.dispatch({ type: UserDELETE });
+        this.store.dispatch({ type: MODIFY, model: { ['user']: undefined } });
     }
 
     getAttribute(name) {
+        const observer = new Subject();
+
         this.user.getUserAttributes((err, result) => {
             if (err) {
                 alert(err);
+                observer.complete();
                 return;
             }
             const attribute = result.filter((attributeObject: CognitoUserAttribute) => attributeObject.getName() === name);
-            return attribute[0] ? attribute[0].getValue() : '';
+            observer.next(attribute[0] ? attribute[0].getValue() : '');
+            observer.complete();
         });
+
+        return observer;
     }
 
     setAttribute(attribute, value) {

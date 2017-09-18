@@ -31,5 +31,5 @@ export interface User {
     email: string;
     firstName: string;
     lastName: string;
-    locale: string;
+    locale: string[];
 }

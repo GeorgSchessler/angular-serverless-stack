@@ -3,8 +3,10 @@ import { Router } from '@angular/router';
 import { CongnitoService } from '../congnito.service';
 import { Events, AppState, Login, User } from '../app.state';
 import { Observable } from 'rxjs/Observable';
-import { MODIFY } from '../events/events.actions';
+import { MODIFY, ADDLOCAL, REMOVELOCAL } from '../user/user.actions';
 import { Store } from '@ngrx/store';
+import 'rxjs/add/operator/first';
+import 'rxjs/add/operator/skip';
 
 @Component({
     selector: 'app-cities',
@@ -31,10 +33,29 @@ export class CitiesComponent {
         this.router.navigate(['/events/' + city]);
     }
 
-    favorite(city) {
-        window.localStorage.setItem('defaultCity', city);
-        this.congnitoService.getAttribute('locale');
-        this.congnitoService.setAttribute('locale', city);
+    addLocal(city) {
+        this.user.skip(1).subscribe(user => this.congnitoService.setAttribute('locale', user.locale.toString()));
+        this.store.dispatch({ type: ADDLOCAL, city: city });
         this.route(city);
+        /* this.user.first().subscribe(user => {
+            if (!user.user) { return ''; }
+
+            user.locale.push(city);
+
+            this.store.dispatch({ type: MODIFY, model: { ['locale']: user.locale } });
+            this.congnitoService.setAttribute('locale', user.locale.toString());
+            this.route(city);
+        }).unsubscribe(); */
+    }
+
+    removeLocal(city) {
+        this.user.skip(1).subscribe(user => this.congnitoService.setAttribute('locale', user.locale.toString()));
+        this.store.dispatch({ type: REMOVELOCAL, city: city });
+        /* this.user.first().subscribe(user => {
+            user.locale = user.locale.filter(value => value !== city);
+
+            this.store.dispatch({ type: MODIFY, model: { ['locale']: user.locale } });
+            this.congnitoService.setAttribute('locale', user.locale.toString());
+        }).unsubscribe();*/
     }
 }

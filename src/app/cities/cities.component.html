@@ -17,8 +17,14 @@
             <button md-button (click)="route(city)">
                 <i class="material-icons">list</i>
             </button>
-            <button md-button [class.deactivated]="!(user | async).user" (click)="favorite(city)">
+            <button md-button class="deactivated" *ngIf="!(user | async).locale.includes(city) && !(user | async).user" (click)="addLocal(city)">
                 <i class="material-icons">favorite_border</i>
+            </button>
+            <button md-button *ngIf="!(user | async).locale.includes(city) && (user | async).user" (click)="addLocal(city)">
+                <i class="material-icons">favorite_border</i>
+            </button>
+            <button md-button *ngIf="(user | async).locale.includes(city)" (click)="removeLocal(city)">
+                <i class="material-icons">favorite</i>
             </button>
         </md-card-actions>
     </md-card>
