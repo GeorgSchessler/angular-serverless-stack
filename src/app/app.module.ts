@@ -22,6 +22,8 @@ import { EventsModule } from './events/events.module';
 import { CongnitoService } from './congnito.service';
 import { EventsService } from './events/events.service';
 import { eventsReducer } from './events/events.reducer';
+import { UserModule } from './user/user.module';
+import { userReducer } from './user/user.reducer';
 
 export function logger(reducer): any {
     return storeLogger()(reducer);
@@ -40,11 +42,14 @@ export const metaReducers = environment.production ? [] : [logger];
         MdButtonModule,
         MdToolbarModule,
         RegistrationModule,
+        UserModule,
         CitiesModule,
         EventsModule,
         LoginModule,
         RouterModule.forRoot(appRoutes),
-        StoreModule.forRoot({ registration: registrationReducer, login: loginReducer, events: eventsReducer }, { metaReducers })
+        StoreModule.forRoot({
+            registration: registrationReducer, login: loginReducer, events: eventsReducer, user: userReducer
+        }, { metaReducers })
     ],
     providers: [
         CongnitoService,

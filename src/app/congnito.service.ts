@@ -3,8 +3,9 @@ import { CognitoUserPool, CognitoUserAttribute, CognitoUser, AuthenticationDetai
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState, Login, Registration } from './app.state';
-import { LOGIN, LOGOUT } from './login/login.actions';
-import { DELETE } from './registration/registration.actions';
+import { MODIFY } from './user/user.actions';
+import { DELETE as RegistrationDELETE } from './registration/registration.actions';
+import { DELETE as LoginDELETE } from './login/login.actions';
 const packageConfig = require('../../package.json');
 
 @Injectable()
@@ -40,7 +41,7 @@ export class CongnitoService {
             this.user = new CognitoUser(userData);
             this.user.authenticateUser(authenticationDetails, {
                 onSuccess: result => {
-                    this.store.dispatch({ type: LOGIN, user: this.user });
+                    this.store.dispatch({ type: MODIFY, model: { ['user']: this.user } });
                     this.router.navigate(['/']);
                 },
                 onFailure: err => alert(err)
@@ -55,7 +56,7 @@ export class CongnitoService {
                     alert(err);
                     return;
                 }
-                this.store.dispatch({ type: LOGIN, user: this.user });
+                this.store.dispatch({ type: MODIFY, model: { ['user']: this.user } });
             });
         }
     }
@@ -79,7 +80,7 @@ export class CongnitoService {
                     }
                     alert('Your account is created. Please check your mails for the confirmation code.');
                     this.user = result.user;
-                    this.store.dispatch({ type: DELETE });
+                    this.store.dispatch({ type: RegistrationDELETE });
                 });
             }
         }).unsubscribe();
@@ -106,7 +107,8 @@ export class CongnitoService {
 
     logout() {
         this.user.signOut();
-        this.store.dispatch({ type: LOGOUT });
+        this.store.dispatch({ type: LoginDELETE });
+        this.store.dispatch({ type: MODIFY, model: { ['user']: undefined} });
     }
 
     getAttribute(name) {

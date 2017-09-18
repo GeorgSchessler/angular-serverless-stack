@@ -3,7 +3,7 @@ import { Login as Model } from '../app.state';
 
 export type Action = Actions.All;
 
-const defaultModel: Model = { email: '', password: '', user: undefined };
+const defaultModel: Model = { email: '', password: '' };
 
 export function loginReducer(state = defaultModel, action: Action) {
     switch (action.type) {
@@ -12,15 +12,6 @@ export function loginReducer(state = defaultModel, action: Action) {
         }
 
         case Actions.DELETE: {
-            return { email: state.email, password: '' };
-        }
-
-        case Actions.LOGIN: {
-            state.user = action.user;
-            return state;
-        }
-
-        case Actions.LOGOUT: {
             return defaultModel;
         }
 
