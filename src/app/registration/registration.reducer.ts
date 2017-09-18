@@ -1,11 +1,11 @@
 import * as Actions from './registration.actions';
-import { Registration } from '../app.state';
+import { Registration as Model } from '../app.state';
 
 export type Action = Actions.All;
 
-const defaultModel = {email: '', firstName: '', lastName: '', password: '', passwordRepeat: '', code: ''};
+const defaultModel: Model = {email: '', firstName: '', lastName: '', password: '', passwordRepeat: '', code: ''};
 
-export function registrationReducer(state: Registration = defaultModel, action: Action) {
+export function registrationReducer(state = defaultModel, action: Action) {
     switch (action.type) {
         case Actions.MODIFY: {
             return {...state, ...action.model};

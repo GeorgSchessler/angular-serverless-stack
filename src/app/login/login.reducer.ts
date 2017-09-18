@@ -1,11 +1,11 @@
 import * as Actions from './login.actions';
-import { Login } from '../app.state';
+import { Login as Model } from '../app.state';
 
 export type Action = Actions.All;
 
-const defaultModel = { email: '', password: '', user: undefined };
+const defaultModel: Model = { email: '', password: '', user: undefined };
 
-export function loginReducer(state: Login = defaultModel, action: Action) {
+export function loginReducer(state = defaultModel, action: Action) {
     switch (action.type) {
         case Actions.MODIFY: {
             return {...state, ...action.model};

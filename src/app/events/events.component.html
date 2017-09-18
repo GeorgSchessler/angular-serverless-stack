@@ -1,14 +1,14 @@
-<h1>Events for {{city | async}}</h1>
-<h2 *ngIf="(eventList | async).length === 0">No events found</h2>
+<h1>Events for {{(model | async).cityFilter}}</h1>
+<h2 *ngIf="(eventsService.getEvents() | async).length === 0">No events found</h2>
 <form class="search-form">
     <md-form-field>
-        <input name="search" mdInput placeholder="Search" [value]="searchValue | async" (change)="searchValue.next($event.target.value)">
+        <input name="search" mdInput placeholder="Search" [value]="(model | async).textFilter" (change)="modify('textFilter', $event.target.value)">
     </md-form-field>
 </form>
-<div *ngFor="let date of dateList | async">
+<div *ngFor="let date of eventsService.getDates() | async">
     <h2>{{date}}</h2>
     <div class="center">
-        <div *ngFor="let event of eventList | async">
+        <div *ngFor="let event of eventsService.getEvents() | async">
             <md-card *ngIf="event.date === date">
                 <md-card-header>
                     <md-card-title>

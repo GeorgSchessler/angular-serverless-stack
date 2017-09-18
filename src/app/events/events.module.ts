@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EventsComponent } from './events.component';
 import { MdListModule, MdCardModule, MdButtonModule, MdInputModule } from '@angular/material';
+import { EventsService } from './events.service';
 
 @NgModule({
   imports: [
@@ -11,6 +12,11 @@ import { MdListModule, MdCardModule, MdButtonModule, MdInputModule } from '@angu
     MdCardModule,
     MdInputModule
   ],
-  declarations: [EventsComponent]
+  declarations: [
+      EventsComponent
+    ],
+  providers: [
+    EventsService
+]
 })
 export class EventsModule { }

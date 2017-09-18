@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { events } from './events';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/combineLatest';
+import { EventsService } from './events.service';
+import { Events, AppState } from '../app.state';
+import { MODIFY } from './events.actions';
+import { Store } from '@ngrx/store';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -11,25 +14,20 @@ import 'rxjs/add/observable/combineLatest';
     templateUrl: './events.component.html',
     styleUrls: ['./events.component.styl']
 })
-export class EventsComponent implements OnInit {
+export class EventsComponent {
 
-    public eventList = new BehaviorSubject([]);
-    public dateList = new BehaviorSubject([]);
-    public city = new BehaviorSubject('');
-    public searchValue = new BehaviorSubject('');
+    model: Observable<Events>;
 
-    constructor(private router: Router, private route: ActivatedRoute) { }
+    constructor(private store: Store<AppState>, private eventsService: EventsService, private route: ActivatedRoute) {
+        this.model = store.select('events');
 
-    ngOnInit() {
-        this.route.params.subscribe(params => { if (params.city) this.city.next(params.city); });
+        this.route.params.subscribe(params => {
+            if (params.city) { store.dispatch({ type: MODIFY, model: { ['cityFilter']: params.city } }); }
+        });
+    }
 
-        this.eventList.subscribe(allEvents => this.dateList.next(allEvents.map(event => event['date'])
-            .filter((elem, pos, arr) => arr.indexOf(elem) === pos)));
-
-        Observable.combineLatest(this.city, this.searchValue).subscribe((values) => this.eventList.next(events
-            .filter(event => values[0] !== '' ? event.city === values[0] : true)
-            .filter(event => values[1] !== '' ? JSON.stringify(event).toLowerCase().includes(values[1].toLowerCase()) : true))
-        );
+    modify(field, value) {
+        this.store.dispatch({ type: MODIFY, model: { [field]: value } });
     }
 
     routeWebsite(ref: string) {
