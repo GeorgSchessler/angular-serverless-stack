@@ -1,9 +1,15 @@
-@import "~@angular/material/prebuilt-themes/deeppurple-amber.css"
-
 html, body
+    height 100%
     margin 0
     padding 0
     font-family Roboto, sans-serif // TODO: remove bad hack
+
+html
+    background-image linear-gradient(to left top, rgba(254, 54, 54, 0.7) 0%, rgba(250, 216, 101, 0.7) 100%)
+    background-repeat repeat
+    background-attachment fixed
+    background-position right top, left top
+    background-size cover
 
 a
     text-decoration none
@@ -17,3 +23,6 @@ a
 
 .mat-card
     max-width 500px
+
+.mat-toolbar.mat-primary
+    background rgba(254, 54, 54, 0.8)

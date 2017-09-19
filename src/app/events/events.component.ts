@@ -18,7 +18,7 @@ export class EventsComponent {
 
     model: Observable<Events>;
 
-    constructor(private store: Store<AppState>, private eventsService: EventsService, private route: ActivatedRoute) {
+    constructor(private store: Store<AppState>, public eventsService: EventsService, private route: ActivatedRoute) {
         this.model = store.select('events');
 
         this.route.params.subscribe(params => {
