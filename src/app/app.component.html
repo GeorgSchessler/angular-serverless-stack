@@ -9,7 +9,7 @@
     <span>
         <button md-button routerLink="/cities">
             <i class="material-icons">location_city</i>
-            <span>Cities</span>
+            <span>Städte</span>
         </button>
     </span>
 
@@ -24,9 +24,20 @@
         </button>
     </span>
     <span *ngIf="(model | async).user">
+        <button md-button routerLink="/user">
+            <i class="material-icons">person</i>
+            <span>Account</span>
+        </button>
         <button md-button (click)="logout()">
                 <i class="material-icons">exit_to_app</i>
             <span>Logout</span>
+        </button>
+    </span>
+
+    <span>
+        <button md-button routerLink="/contact">
+            <i class="material-icons">info_outline</i>
+            <span class="visible">Kontakt</span>
         </button>
     </span>
 </md-toolbar>

@@ -24,6 +24,8 @@ import { EventsService } from './events/events.service';
 import { eventsReducer } from './events/events.reducer';
 import { UserModule } from './user/user.module';
 import { userReducer } from './user/user.reducer';
+import { ContactComponent } from './contact/contact.component';
+import { HomeComponent } from './home/home.component';
 
 export function logger(reducer): any {
     return storeLogger()(reducer);
@@ -33,7 +35,9 @@ export const metaReducers = environment.production ? [] : [logger];
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+        ContactComponent,
+        HomeComponent
     ],
     imports: [
         BrowserModule,

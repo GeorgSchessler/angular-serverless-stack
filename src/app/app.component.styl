@@ -15,8 +15,20 @@ md-toolbar
 .mat-toolbar-row
     flex-wrap wrap
 
-@media (max-width: 600px)
+@media (max-width: 650px)
     button
         min-width 0
     button span
         display none
+    button .visible
+        display inline
+
+@media (max-width: 500px)
+    :host >>> md-toolbar-row
+        flex-wrap wrap
+        height 76px
+
+@media (max-width: 300px)
+    :host >>> md-toolbar-row
+        flex-wrap wrap
+        height 120px

@@ -23,10 +23,10 @@ export class CitiesComponent {
     constructor(private store: Store<AppState>, private router: Router, private congnitoService: CongnitoService) {
         this.model = store.select('events');
         this.user = store.select('user');
-        const defaultCity = window.localStorage.getItem('defaultCity');
+        /* const defaultCity = window.localStorage.getItem('defaultCity');
         if (!window.location.href.endsWith('cities') && defaultCity) {
             this.route(defaultCity);
-        }
+        } */
     }
 
     route(city) {
@@ -34,28 +34,15 @@ export class CitiesComponent {
     }
 
     addLocal(city) {
-        this.user.skip(1).subscribe(user => this.congnitoService.setAttribute('locale', user.locale.toString()));
+        const subscription = this.user.skip(1).subscribe(user => this.congnitoService.setAttribute('locale', user.locale.toString()));
         this.store.dispatch({ type: ADDLOCAL, city: city });
+        subscription.unsubscribe();
         this.route(city);
-        /* this.user.first().subscribe(user => {
-            if (!user.user) { return ''; }
-
-            user.locale.push(city);
-
-            this.store.dispatch({ type: MODIFY, model: { ['locale']: user.locale } });
-            this.congnitoService.setAttribute('locale', user.locale.toString());
-            this.route(city);
-        }).unsubscribe(); */
     }
 
     removeLocal(city) {
-        this.user.skip(1).subscribe(user => this.congnitoService.setAttribute('locale', user.locale.toString()));
+        const subscription = this.user.skip(1).subscribe(user => this.congnitoService.setAttribute('locale', user.locale.toString()));
         this.store.dispatch({ type: REMOVELOCAL, city: city });
-        /* this.user.first().subscribe(user => {
-            user.locale = user.locale.filter(value => value !== city);
-
-            this.store.dispatch({ type: MODIFY, model: { ['locale']: user.locale } });
-            this.congnitoService.setAttribute('locale', user.locale.toString());
-        }).unsubscribe();*/
+        subscription.unsubscribe();
     }
 }

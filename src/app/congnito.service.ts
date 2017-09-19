@@ -60,6 +60,9 @@ export class CongnitoService {
                     alert(err);
                     return;
                 }
+                this.getAttribute('locale').subscribe((locale: string) => {
+                    this.store.dispatch({ type: MODIFY, model: { ['locale']: locale.split(',') } });
+                });
                 this.store.dispatch({ type: MODIFY, model: { ['user']: this.user } });
             });
         }
