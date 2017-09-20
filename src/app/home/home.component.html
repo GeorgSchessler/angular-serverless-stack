@@ -1,3 +1,20 @@
 <div class="center">
-    
+    <h1>Application</h1>
+    <h2>...</h2>
+
+    <div class="slideshow-container">
+        <img *ngIf="slideIndex === 0" src="assets/Berlin.jpg" style="width:100%" alt="Berlin">
+        <img *ngIf="slideIndex === 1" src="assets/Frankfurt.jpg" style="width:100%" alt="Frankfurt">
+        <img *ngIf="slideIndex === 2" src="assets/Stuttgart.jpg" style="width:100%" alt="Stuttgart">
+    </div>
+
+    <div class="slideshow-dots">
+        <span class="dot" (click)="showSliderItem(0)"></span>
+        <span class="dot" (click)="showSliderItem(1)"></span>
+        <span class="dot" (click)="showSliderItem(2)"></span>
+    </div>
+
+    <a routerLink="/events">
+        <h2>Events</h2>
+    </a>
 </div>

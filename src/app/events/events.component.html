@@ -1,15 +1,19 @@
-<h1>Events for {{(model | async).cityFilter}}</h1>
-<h2 *ngIf="(eventsService.getEvents() | async).length === 0">No events found</h2>
-<form class="search-form">
+<h1 *ngIf="(model | async).cityFilter">Events für {{(model | async).cityFilter}}</h1>
+<h1 *ngIf="!(model | async).cityFilter">Events</h1>
+
+<div class="search-form">
     <md-form-field>
-        <input name="search" mdInput placeholder="Search" [value]="(model | async).textFilter" (change)="modify('textFilter', $event.target.value)">
+        <input name="search" mdInput placeholder="Suche" [value]="(model | async).textFilter" (change)="modify('textFilter', $event.target.value)">
     </md-form-field>
-</form>
+</div>
+
+<h2 *ngIf="(eventsService.getDates() | async).length === 0">No events found</h2>
+
 <div *ngFor="let date of eventsService.getDates() | async">
-    <h2>{{date}}</h2>
+    <h2>{{date.day}} der {{date.title}}</h2>
     <div class="center">
-        <div *ngFor="let event of eventsService.getEvents() | async">
-            <md-card *ngIf="event.date === date">
+        <div *ngFor="let event of date.events">
+            <md-card>
                 <md-card-header>
                     <md-card-title>
                         <h3>{{event.name}}</h3>
@@ -20,19 +24,19 @@
                     <p>{{event.description}}</p>
                 </md-card-content>
                 <md-card-actions>
-                <button md-button *ngIf="event.website" (click)="routeWebsite(event.website)">
+                    <button md-button *ngIf="event.website" (click)="routeWebsite(event.website)">
                     <i class="material-icons">bookmark</i>
                     <span>Website</span>
                 </button>
-                <button md-button *ngIf="event.facebook" (click)="routeFacebook(event.facebook)">
+                    <button md-button *ngIf="event.facebook" (click)="routeFacebook(event.facebook)">
                     <i class="material-icons">share</i>
                     <span>Facebook</span>
                 </button>
-                <button md-button *ngIf="event.address" (click)="routeMap(event.address)">
+                    <button md-button *ngIf="event.address" (click)="routeMap(event.address)">
                     <i class="material-icons">map</i>
                     <span>Karte</span>
                 </button>
-                <button md-button *ngIf="event.price">
+                    <button md-button *ngIf="event.price" class="no-cursor">
                     <i class="material-icons">euro_symbol</i>
                     <span>{{event.price}}</span>
                 </button>

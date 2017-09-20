@@ -3,6 +3,8 @@ import { Observable } from 'rxjs/Observable';
 import { User, AppState } from '../app.state';
 import { Store } from '@ngrx/store';
 import { CongnitoService } from '../congnito.service';
+import { MODIFY } from '../user/user.actions';
+
 
 @Component({
     selector: 'app-user',
@@ -18,7 +20,13 @@ export class UserComponent {
     }
 
     modify(field, value) {
-        // this.store.dispatch({ type: MODIFY, model: { [field]: value } });
+        this.store.dispatch({ type: MODIFY, model: { [field]: value } });
     }
 
+    change() {
+        this.model.subscribe(user => {
+            this.congnitoService.setAttribute('name', user.firstName);
+            this.congnitoService.setAttribute('family_name', user.lastName);
+        }).unsubscribe();
+    }
 }

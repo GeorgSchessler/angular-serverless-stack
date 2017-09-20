@@ -12,6 +12,7 @@ export const appRoutes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'user', component: UserComponent },
     { path: 'cities', component: CitiesComponent },
+    { path: 'events', component: EventsComponent },
     { path: 'events/:city', component: EventsComponent },
     { path: 'contact', component: ContactComponent },
     { path: '', component: HomeComponent }

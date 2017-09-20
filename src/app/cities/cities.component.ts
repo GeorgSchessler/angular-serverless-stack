@@ -37,7 +37,6 @@ export class CitiesComponent {
         const subscription = this.user.skip(1).subscribe(user => this.congnitoService.setAttribute('locale', user.locale.toString()));
         this.store.dispatch({ type: ADDLOCAL, city: city });
         subscription.unsubscribe();
-        this.route(city);
     }
 
     removeLocal(city) {

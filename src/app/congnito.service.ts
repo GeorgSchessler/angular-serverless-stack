@@ -42,9 +42,7 @@ export class CongnitoService {
             this.user = new CognitoUser(userData);
             this.user.authenticateUser(authenticationDetails, {
                 onSuccess: result => {
-                    this.getAttribute('locale').subscribe((locale: string) => {
-                        this.store.dispatch({ type: MODIFY, model: { ['locale']: locale.split(',') } });
-                    });
+                    this.readAccountAttributes();
                     this.store.dispatch({ type: MODIFY, model: { ['user']: this.user } });
                     this.router.navigate(['/']);
                 },
@@ -60,12 +58,25 @@ export class CongnitoService {
                     alert(err);
                     return;
                 }
-                this.getAttribute('locale').subscribe((locale: string) => {
-                    this.store.dispatch({ type: MODIFY, model: { ['locale']: locale.split(',') } });
-                });
+                this.readAccountAttributes();
                 this.store.dispatch({ type: MODIFY, model: { ['user']: this.user } });
             });
         }
+    }
+
+    readAccountAttributes() {
+        this.getAttribute('email').subscribe((locale: string) => {
+            this.store.dispatch({ type: MODIFY, model: { ['email']: locale } });
+        });
+        this.getAttribute('name').subscribe((locale: string) => {
+            this.store.dispatch({ type: MODIFY, model: { ['firstName']: locale } });
+        });
+        this.getAttribute('family_name').subscribe((locale: string) => {
+            this.store.dispatch({ type: MODIFY, model: { ['lastName']: locale } });
+        });
+        this.getAttribute('locale').subscribe((locale: string) => {
+            this.store.dispatch({ type: MODIFY, model: { ['locale']: locale.split(',') } });
+        });
     }
 
     register() {

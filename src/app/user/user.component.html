@@ -1,3 +1,24 @@
-<p>
-  user works!
-</p>
+<div class="center">
+    <md-card class="example-card">
+        <md-card-header>
+            <div md-card-avatar><i class="material-icons">person</i></div>
+            <md-card-title>Profil aktualisieren</md-card-title>
+        </md-card-header>
+        <md-card-content>
+            <form>
+                <md-form-field>
+                    <input mdInput disabled placeholder="E-Mail" [value]="(model | async).email">
+                </md-form-field>
+                <md-form-field>
+                    <input mdInput placeholder="Vorname" [value]="(model | async).firstName" (change)="modify('firstName', $event.target.value)">
+                </md-form-field>
+                <md-form-field>
+                    <input mdInput placeholder="Nachname" [value]="(model | async).lastName" (change)="modify('lastName', $event.target.value)">
+                </md-form-field>
+            </form>
+        </md-card-content>
+        <md-card-actions>
+            <button md-button (click)="change()">Aktualisieren</button>
+        </md-card-actions>
+    </md-card>
+</div>

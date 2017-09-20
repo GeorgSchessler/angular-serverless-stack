@@ -13,7 +13,8 @@ export const events =
         facebook: '{Facebook}',
         address: '{Adresse}',
         pic: '{Bild}',
-        price: '{Eintritt}'
+        price: '{Eintritt}',
+        weekly: '{Woechentlich}'
     },
     {/events}
 ];
